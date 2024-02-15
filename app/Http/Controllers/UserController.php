@@ -8,6 +8,18 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+    // Get PROFILE and Posts from User
+    public function profile(User $user) { // it looks for the 'username' in the User, is not the default 'id' based on the web.php route
+        // $theUserPosts = $user->posts()->get();
+        // return $theUserPosts;
+        return view('profile-posts', [
+            'username' => $user->username,
+            'posts' => $user->posts()->latest()->get(),
+            'postCount' => $user->posts()->count()    
+        ]);
+    }
+
     // LOGOUT
     public function logout() {
         auth()->logout();
