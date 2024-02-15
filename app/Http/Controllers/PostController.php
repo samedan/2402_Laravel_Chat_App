@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -21,12 +22,15 @@ class PostController extends Controller
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['user_id'] = auth()->id();
-        Post::create($incomingFields);
-        return 'post saved';
+        
+        $newPost = Post::create($incomingFields);
+        return redirect("/post/{$newPost->id}")->with('successMessage', 'New post successfully created.');
     }
 
     // GET Post 2
     public function viewSinglePost(Post $post) {
+        $ourHTML = Str::markdown($post->body);
+        $post['body'] = strip_tags( $ourHTML, '<p><ul><li><ol><strong><em><h3><br><h2>>'); // tags that are allowed
         return view('single-post', ['post' => $post]);
     }
 
