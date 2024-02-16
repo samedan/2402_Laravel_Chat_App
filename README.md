@@ -42,3 +42,7 @@ composer create-project laravel/laravel anothertestapp
 
 > Add Gate to /app/Providers/AuthServiceProvider.php
 > add route to web.php ->middleware('can:visitAdminPages')
+
+### Upload files / Add link to Folder
+
+php artisan storage:link

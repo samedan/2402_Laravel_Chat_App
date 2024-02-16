@@ -9,6 +9,17 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
 
+    //POST Image Avatar
+    public function storeAvatar(Request $request) {
+        $request->file('avatar')->store('public/avatars'); // name of teh input
+        return 'file';
+    }
+
+    // GET Form image Avatar
+    public function showAvatarForm() {
+        return view('avatar-form');
+    }
+
     // Get PROFILE and Posts from User
     public function profile(User $user) { // it looks for the 'username' in the User, is not the default 'id' based on the web.php route
         // $theUserPosts = $user->posts()->get();
