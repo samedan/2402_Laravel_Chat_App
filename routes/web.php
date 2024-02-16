@@ -17,6 +17,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// ADMIN Route
+Route::get('/admins-only', function() {
+   return 'Only visible for admins';
+})->middleware('can:visitAdminPages');
+
 Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login'); // name given so middleware(auth) sends to 'login' page
 
 // User LOGIN

@@ -37,3 +37,8 @@ composer create-project laravel/laravel anothertestapp
 > php artisan make:policy PostPolicy --model=Post
 > Add PostPolicy to app/Providers/AuthServiceProvider.php
 > add in the blade template single-post.blade: @can('update', $post)
+
+### IsAdmin Gate
+
+> Add Gate to /app/Providers/AuthServiceProvider.php
+> add route to web.php ->middleware('can:visitAdminPages')
