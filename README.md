@@ -50,3 +50,7 @@ php artisan storage:link
 ### Added Avatar / avatar link
 
 > User model : Attribute::make()
+
+### Follows Table
+
+> 'user_id' = user doing the following, 'followeduser'

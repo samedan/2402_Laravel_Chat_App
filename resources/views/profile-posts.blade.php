@@ -2,13 +2,39 @@
  <div class="container py-md-5 container--narrow">
   <h2>
     <img class="avatar-small" src="{{$avatar}}" /> {{$username}}
-    <form class="ml-2 d-inline" action="#" method="POST">
-      <button class="btn btn-primary btn-sm">Follow <i class="fas fa-user-plus"></i></button>
-      <!-- <button class="btn btn-danger btn-sm">Stop Following <i class="fas fa-user-times"></i></button> -->
-      @if(auth()->user()->username == $username) 
-        <a href="/manage-avatar" class="btn btn-secondary btn-sm">Manage Avatar</a>
+
+     {{-- BUTTON to Follow --}}
+      @auth
+      @if(!$currentlyFollowing  // you are not currently following user 
+          AND
+          auth()->user()->username != $username // this is not you 'UserController'
+      )   
+        <form class="ml-2 d-inline" action="/create-follow/{{$username}}" method="POST">
+          @csrf
+          <button class="btn btn-primary btn-sm">Follow <i class="fas fa-user-plus"></i></button>
+        </form>
+
       @endif
-    </form>
+      {{-- End BUTTON to Follow --}}
+
+      {{-- BUTTON to Unfollow --}}
+      @if($currentlyFollowing)
+      <form class="ml-2 d-inline" action="/remove-follow/{{$username}}" method="POST">
+        @csrf
+        <button class="btn btn-danger btn-sm">Stop Following <i class="fas fa-user-times"></i></button>
+      </form>
+      @endif 
+      {{-- End BUTTON to Unfollow --}}    
+
+      {{-- Manage Avatar --}}
+      @if(auth()->user()->username == $username) 
+          <a href="/manage-avatar" class="btn btn-secondary btn-sm">Manage Avatar</a>
+      @endif
+
+      @endauth
+     
+
+    
   </h2>
 
   <div class="profile-nav nav nav-tabs pt-2 mb-4">

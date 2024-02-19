@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -42,12 +43,20 @@ class UserController extends Controller
     }
 
     // Get PROFILE and Posts from User
-    public function profile(User $user) { // it looks for the 'username' in the User, is not the default 'id' based on the web.php route
-        // $theUserPosts = $user->posts()->get();
-        // return $theUserPosts;
+    public function profile(User $user) { 
+        $currentlyFollowing = 0;
+        if(auth()->check()) {
+            // if logged in
+            $currentlyFollowing = Follow::where([
+                ['user_id', '=', auth()->user()->id], // you are logged in with user_id in 'follows' table
+                ['followeduser', '=', $user->id] // already following the 'followeduser'
+            ])->count(); // boolean
+        };
+        
         return view('profile-posts', [
             'username' => $user->username,
             'avatar' =>$user->avatar,
+            'currentlyFollowing' => $currentlyFollowing,
             'posts' => $user->posts()->latest()->get(),
             'postCount' => $user->posts()->count()    
         ]);
