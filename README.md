@@ -46,3 +46,7 @@ composer create-project laravel/laravel anothertestapp
 ### Upload files / Add link to Folder
 
 php artisan storage:link
+
+### Added Avatar / avatar link
+
+> User model : Attribute::make()

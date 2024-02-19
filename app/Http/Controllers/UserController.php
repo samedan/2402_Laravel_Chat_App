@@ -4,15 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
 
     //POST Image Avatar
     public function storeAvatar(Request $request) {
-        $request->file('avatar')->store('public/avatars'); // name of teh input
-        return 'file';
+        $request->validate([
+            'avatar' => 'required|image|max:3000'
+        ]);
+
+        $user = auth()->user();
+        $filename = $user->id . '-' . uniqid() . '.jpg';
+        // raw data 120x120 pixels
+        $imgData = Image::make($request->file('avatar'))->fit(120)->encode('jpg');
+        Storage::put('public/avatars/'.$filename, $imgData);
+
+        // delete the old avatar file
+        $oldAvatar = $user->avatar;
+
+        $user->avatar = $filename;
+        $user->save();
+
+        // really delete the old avatar file
+        if($oldAvatar != '/fallback-avatar.jpg') {
+            Storage::delete(str_replace("/storage/", "public/", $oldAvatar));
+        }
+        return back()->with('successMessage', 'Congrats on the new avatar');
     }
 
     // GET Form image Avatar
@@ -26,6 +47,7 @@ class UserController extends Controller
         // return $theUserPosts;
         return view('profile-posts', [
             'username' => $user->username,
+            'avatar' =>$user->avatar,
             'posts' => $user->posts()->latest()->get(),
             'postCount' => $user->posts()->count()    
         ]);
