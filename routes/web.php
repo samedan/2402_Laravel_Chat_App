@@ -49,3 +49,7 @@ Route::put('/post/{post}', [PostController::class, 'actuallyUpdate'])->middlewar
 
 // Profile
 Route::get('/profile/{user:username}', [UserController::class, 'profile']); // 'username' is not id, it becomes the defauylt search ietm in the dbb
+// Profile Followers
+Route::get('/profile/{user:username}/followers', [UserController::class, 'profileFollowers']); // 'username' is not id, it becomes the defauylt search ietm in the dbb
+// Profile Following
+Route::get('/profile/{user:username}/following', [UserController::class, 'profileFollowing']); // 'username' is not id, it becomes the defauylt search ietm in the dbb

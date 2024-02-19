@@ -54,3 +54,9 @@ php artisan storage:link
 ### Follows Table
 
 > 'user_id' = user doing the following, 'followeduser'
+
+### Profile pages subs
+
+> profile.blade.php includes profile-posts.blade.php
+> UserController : private function getSharedProfileData($user)
+> View::share('sharedData', [xyz])
