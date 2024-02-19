@@ -60,3 +60,9 @@ php artisan storage:link
 > profile.blade.php includes profile-posts.blade.php
 > UserController : private function getSharedProfileData($user)
 > View::share('sharedData', [xyz])
+
+### Get Additional user data from Other Table
+
+> Models/Follow.php -> public function userDoingTheFollowing() {}
+> UserController -> ['followers' => $user->followers()->latest()->get()]
+> use in template profile-followers.blade.php

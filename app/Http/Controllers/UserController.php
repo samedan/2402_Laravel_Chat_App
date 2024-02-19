@@ -43,7 +43,7 @@ class UserController extends Controller
         return view('avatar-form');
     }
 
-    // shared / not duplicate data
+    // SHARED DATA Profile/Following/Followers - not duplicate data
     private function getSharedProfileData($user) {
         $currentlyFollowing = 0;
         if(auth()->check()) {
@@ -57,7 +57,9 @@ class UserController extends Controller
             'username' => $user->username,
             'avatar' =>$user->avatar,
             'currentlyFollowing' => $currentlyFollowing,
-            'postCount' => $user->posts()->count()    
+            'postCount' => $user->posts()->count(),
+            'followerCount' => $user->followers()->count(),
+            'followingCount' => $user->followingTheseUsers()->count(),
         ]);
     }
 
@@ -70,13 +72,14 @@ class UserController extends Controller
     // Get PROFILE Followers
     public function profileFollowers(User $user) { 
         $this->getSharedProfileData($user);
-        return view('profile-followers', ['posts' => $user->posts()->latest()->get()]);
+        // return $user->followers()->latest()->get(); JSON
+        return view('profile-followers', ['followers' => $user->followers()->latest()->get()]);
     }
 
     // Get PROFILE Following
     public function profileFollowing(User $user) { 
         $this->getSharedProfileData($user);
-        return view('profile-following', ['posts' => $user->posts()->latest()->get()]);
+        return view('profile-following', ['following' => $user->followingTheseUsers()->latest()->get()]);
     }
 
     // LOGOUT
