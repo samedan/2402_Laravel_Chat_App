@@ -66,3 +66,8 @@ php artisan storage:link
 > Models/Follow.php -> public function userDoingTheFollowing() {}
 > UserController -> ['followers' => $user->followers()->latest()->get()]
 > use in template profile-followers.blade.php
+
+### Get followed posts on the first page (login users)
+
+> User model -> public function feedPosts() {}
+> Reads the tables: User -> Follows -> Posts

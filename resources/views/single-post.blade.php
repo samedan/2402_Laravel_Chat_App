@@ -20,8 +20,8 @@
       </div>
 
       <p class="text-muted small mb-4">
-        <a href="#"><img class="avatar-tiny" src="{{$post->userThatWroteThePost->avatar}}" /></a>
-        Posted by <a href="#">{{$post->userThatWroteThePost->username}}</a> on {{$post->created_at->format('n/j/Y')}}
+        <a href="/profile/{{$post->userThatWroteThePost->username}}"><img class="avatar-tiny" src="{{$post->userThatWroteThePost->avatar}}" /></a>
+        Posted by <a href="/profile/{{$post->userThatWroteThePost->username}}">{{$post->userThatWroteThePost->username}}</a> on {{$post->created_at->format('n/j/Y')}}
       </p>
 
       <div class="body-content">

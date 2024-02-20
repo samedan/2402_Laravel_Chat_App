@@ -51,6 +51,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // Get Posts
+    public function feedPosts() {
+        return $this->hasManyThrough( // from 'user' table to 'posts' table going through 'follows' table
+            Post::class, // final model
+            Follow::class, // intermediate table 
+            'user_id', // foreign key on the intermediate table (follow)
+            'user_id', // foreign key on the final model (post)
+            'id', // local key (followeduser) on 'follows' table
+            'followeduser' // local key on the intermediate table (follow)
+        ); 
+    }
+
     // Get User's Posts
     public function posts() {
         return $this->hasMany(Post::class, 'user_id');
