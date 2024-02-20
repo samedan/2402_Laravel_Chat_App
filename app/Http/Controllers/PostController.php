@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
 
+    // GET Search posts
+    public function search($term) {
+        $posts = Post::search($term)->get();
+        $posts->load('user:id,username,avatar');
+        return $posts;
+    }
+
     // GET Edit post form
     public function showEditForm(Post $post) {
         return view('edit-post', [

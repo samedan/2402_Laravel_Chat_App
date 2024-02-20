@@ -71,3 +71,11 @@ php artisan storage:link
 
 > User model -> public function feedPosts() {}
 > Reads the tables: User -> Follows -> Posts
+
+### Search post with Laravel Scout
+
+> composer require laravel/scout
+> install: php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
+> .env -> SCOUT_DRIVER=database
+
+> Load additional: search($term) {$posts->load('user:id,username,avatar');}

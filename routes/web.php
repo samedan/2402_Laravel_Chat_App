@@ -46,6 +46,8 @@ Route::delete('/post/{post}', [PostController::class, 'delete'])->middleware('ca
 // view edit form
 Route::get('/post/{post}/edit', [PostController::class, 'showEditForm'])->middleware('can:update,post');
 Route::put('/post/{post}', [PostController::class, 'actuallyUpdate'])->middleware('can:update,post');
+// search blogs
+Route::get('/search/{term}', [PostController::class, 'search']);
 
 // Profile
 Route::get('/profile/{user:username}', [UserController::class, 'profile']); // 'username' is not id, it becomes the defauylt search ietm in the dbb
