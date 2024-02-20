@@ -1,4 +1,4 @@
-<x-profile :sharedData="$sharedData">
+<x-profile :sharedData="$sharedData" doctitle="Who {{$sharedData['username']}} follows">
 
  <div class="list-group">
    

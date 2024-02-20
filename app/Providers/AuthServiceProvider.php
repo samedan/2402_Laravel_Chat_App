@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -26,5 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('visitAdminPages', function($user) {
             return $user->isAdmin === 1;
         });
+
+        Paginator::useBootstrapFive();
     }
 }

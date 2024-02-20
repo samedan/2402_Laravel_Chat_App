@@ -9,12 +9,12 @@
     <div class="list-group">
     
       @foreach ($posts as $post)
-      <a href="/post/{{ $post->id }}" class="list-group-item list-group-item-action">
-       <img class="avatar-tiny" src="{{$post->userThatWroteThePost->avatar}}" />
-       <strong>{{$post->title}}</strong> <span class="text-muted small">by {{$post->userThatWroteThePost->username}} on {{$post->created_at->format('n/j/Y')}}</span>
-     </a>   
+        <x-post :post="$post"/>
       @endforeach
   
+    </div>
+    <div class="mt-4">
+      {{ $posts->links() }}
     </div>
 
   @else 
