@@ -86,3 +86,13 @@ php artisan storage:link
 > /resources/js/live-search.js
 > /views/components/layout.blade.js -> @vite(['resources/css/app.css']) & @vite(['resources/js/app.js'])
 > /resources/js/app.js -> new Search()
+
+### Events & Listeners
+
+> edit file /app/provider/EventServiceProvider.php
+> php artisan event:generate
+> OurExampleListener.php -> Log::debug("")
+> logging in file: /storage/logs/laravel.log
+> OurExampleEvent -> \_\_construct($theEvent)  { $this->username = $theEvent['username']; $this->action = $theEvent['action']; }
+> OurExampleListener -> Log::debug("The user {$event->username} just performed {$event->action}.");
+> UserController.php -> event(new OurExampleEvent(['username' => auth()->user()->username,'action' => 'logout']));
