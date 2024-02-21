@@ -58,6 +58,16 @@ Route::get('/profile/{user:username}/followers', [UserController::class, 'profil
 // Profile Following
 Route::get('/profile/{user:username}/following', [UserController::class, 'profileFollowing']); // 'username' is not id, it becomes the defauylt search ietm in the dbb
 
+// CACHE routes
+Route::middleware('cache.headers:public;max_age=20;etag')->group(function() {
+      // Profile JSON
+      Route::get('/profile/{user:username}/raw', [UserController::class, 'profileRaw']); // 'username' is not id, it becomes the defauylt search ietm in the dbb
+      // Profile Followers JSON
+      Route::get('/profile/{user:username}/followers/raw', [UserController::class, 'profileFollowersRaw']); // 'username' is not id, it becomes the defauylt search ietm in the dbb
+      // Profile Following JSON
+      Route::get('/profile/{user:username}/following/raw', [UserController::class, 'profileFollowingRaw']); // 'username' is not id, it becomes the defauylt search ietm in the dbb
+});
+
 
 // Pusher POST chat
 Route::post('/send-chat-message', function (Request $request) {

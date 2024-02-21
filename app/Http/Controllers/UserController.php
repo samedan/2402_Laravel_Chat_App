@@ -69,6 +69,16 @@ class UserController extends Controller
         $this->getSharedProfileData($user);
         return view('profile-posts', ['posts' => $user->posts()->latest()->get()]);
     }
+    // Get PROFILE RAW JSON
+    public function profileRaw(User $user) { 
+        return response()->json([
+            'theHTML' => view(
+                    'profile-posts-only',  
+                    ['posts' => $user->posts()->latest()->get()]
+                )->render(), // only text
+            'docTitle' => $user->username . "'s Profile"
+        ]);
+    }
 
     // Get PROFILE Followers
     public function profileFollowers(User $user) { 
@@ -76,11 +86,31 @@ class UserController extends Controller
         // return $user->followers()->latest()->get(); JSON
         return view('profile-followers', ['followers' => $user->followers()->latest()->get()]);
     }
+    // Get PROFILE Followers RAW JSON 
+    public function profileFollowersRaw(User $user) { 
+        return response()->json([
+            'theHTML' => view(
+                    'profile-followers-only',  
+                    ['followers' => $user->followers()->latest()->get()]
+                )->render(), // only text
+            'docTitle' => $user->username . "'s Followers"
+        ]);
+    }
 
     // Get PROFILE Following
     public function profileFollowing(User $user) { 
         $this->getSharedProfileData($user);
         return view('profile-following', ['following' => $user->followingTheseUsers()->latest()->get()]);
+    }
+    // Get PROFILE Following RAW JSON 
+    public function profileFollowingRaw(User $user) { 
+        return response()->json([
+            'theHTML' => view(
+                    'profile-following-only',  
+                    ['following' => $user->followingTheseUsers()->latest()->get()]
+                )->render(), // only text
+            'docTitle' => "Who ".$user->username . " follows"
+        ]);
     }
 
     // LOGOUT
