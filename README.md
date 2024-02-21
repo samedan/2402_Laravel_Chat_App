@@ -79,3 +79,10 @@ php artisan storage:link
 > .env -> SCOUT_DRIVER=database
 
 > Load additional: search($term) {$posts->load('user:id,username,avatar');}
+
+### JavaScript Search
+
+> npm i -> resources folder, npm i dompurify
+> /resources/js/live-search.js
+> /views/components/layout.blade.js -> @vite(['resources/css/app.css']) & @vite(['resources/js/app.js'])
+> /resources/js/app.js -> new Search()
