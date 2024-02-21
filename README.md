@@ -107,3 +107,18 @@ php artisan storage:link
 > layout.blade.php added -> <div data-username="{{auth()->user()->username}}" data-avatar="{{auth()->user()->avatar}}">
 > /app/resources/bootstrap.js added -> import Echo from "laravel-echo"; import Pusher from "pusher-js";
 > /routes/web.php -> Route::post('/send-chat-message')
+
+### send email
+
+> mail trap account -> .env
+> views -> new-post-email.php
+> php artisan make:mail NewPostEmail -> /app/Mail/NewPostEmail.php
+> PostController.php -> public function storeNewPost( ... Mail::to() ...)
+
+### Job
+
+> php artisan make:job SendNewPostEmail -> /Jobs/
+>
+> .env -> QUEUE_CONNECTION=database
+> new table migration: php artisan queue:table
+> always run Job: php artisan queue:work
