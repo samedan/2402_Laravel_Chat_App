@@ -96,3 +96,14 @@ php artisan storage:link
 > OurExampleEvent -> \_\_construct($theEvent)  { $this->username = $theEvent['username']; $this->action = $theEvent['action']; }
 > OurExampleListener -> Log::debug("The user {$event->username} just performed {$event->action}.");
 > UserController.php -> event(new OurExampleEvent(['username' => auth()->user()->username,'action' => 'logout']));
+
+### Chat event
+
+> pusher account
+> .env edited
+> /app/Events/ChatMessage.php
+> /app/routes/channels.php
+> added /resources/js/chat.js
+> layout.blade.php added -> <div data-username="{{auth()->user()->username}}" data-avatar="{{auth()->user()->avatar}}">
+> /app/resources/bootstrap.js added -> import Echo from "laravel-echo"; import Pusher from "pusher-js";
+> /routes/web.php -> Route::post('/send-chat-message')
